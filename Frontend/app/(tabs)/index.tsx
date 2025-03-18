@@ -16,7 +16,7 @@ export default function HomeScreen() {
         />
       }>
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome! to smartvillage app hello greeshan</ThemedText>
+        <ThemedText type="title">Welcome! to smartvillage app hello greeshan and shiva</ThemedText>
         <HelloWave />
       </ThemedView>
       <ThemedView style={styles.stepContainer}>

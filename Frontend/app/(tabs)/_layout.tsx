@@ -40,6 +40,13 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
         }}
       />
+      <Tabs.Screen
+        name="BackendDataScreen"
+        options={{
+          title: 'Backend Data',
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="server.rack" color={color} />, // Use an appropriate icon
+        }}
+      />
     </Tabs>
   );
 }

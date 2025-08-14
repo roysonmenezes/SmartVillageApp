@@ -19,3 +19,4 @@ media/
 
 # Ignore environment variables or secret files
 .env
+env/

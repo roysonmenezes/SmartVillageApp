@@ -24,10 +24,10 @@
 
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
-from rest_framework import generics
+from rest_framework import generics, permissions
 from rest_framework.parsers import MultiPartParser, FormParser
 from django.contrib.auth import get_user_model
-from .serializers import RegisterSerializer
+from .serializers import RegisterSerializer, UserProfileSerializer
 from rest_framework.parsers import JSONParser
 
 
@@ -43,6 +43,14 @@ class RegisterView(generics.CreateAPIView):
     parser_classes = [JSONParser]
     queryset = User.objects.all()
     serializer_class = RegisterSerializer
+
+@method_decorator(csrf_exempt, name='dispatch')
+class UserProfileView(generics.RetrieveAPIView):
+    serializer_class = UserProfileSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_object(self):
+        return self.request.user
 
 
 

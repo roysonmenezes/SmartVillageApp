@@ -22,4 +22,5 @@ urlpatterns = [
     path('', root_view, name='root'),  # Root URL
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),  # API URLs
+    path('accounts/', include('accounts.urls')),  # Accounts URLs
 ]

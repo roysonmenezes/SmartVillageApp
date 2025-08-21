@@ -48,7 +48,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
         model = User
         fields = [
             "id", "username", "email", "full_name", "phone_number",
-            "address", "date_of_birth", "user_type"
+            "address", "date_of_birth", "user_type", "profile_picture"
         ]
 
 
@@ -61,3 +61,19 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         data['user_type'] = getattr(self.user, 'user_type', 'user')
 
         return data
+    
+class UpdateProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = [
+            "full_name",
+            "phone_number",
+            "email", 
+            "address",
+            "date_of_birth",
+            "profile_picture",  # ✅ include the new image field
+        ]
+        extra_kwargs = {
+            "phone_number": {"required": False},  # allow partial updates
+            "email": {"required": False},
+        }

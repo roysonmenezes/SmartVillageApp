@@ -24,3 +24,12 @@ urlpatterns = [
     path('api/', include('api.urls')),  # API URLs
     path('accounts/', include('accounts.urls')),  # Accounts URLs
 ]
+
+# for media files
+from django.conf import settings
+from django.conf.urls.static import static
+
+if settings.DEBUG:  # serve media files only in development
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+

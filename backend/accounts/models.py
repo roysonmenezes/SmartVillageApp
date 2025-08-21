@@ -39,6 +39,13 @@ class User(AbstractUser):
         null=True,
         help_text="Date of birth"
     )
+    # ✅ New field for profile picture
+    profile_picture = models.ImageField(
+        upload_to="profile_pics/",
+        blank=True,
+        null=True,
+        help_text="Profile picture of the user"
+    )
 
     class Meta:
         db_table = 'users'

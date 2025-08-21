@@ -151,3 +151,8 @@ REST_FRAMEWORK = {
     ),
 }
 
+
+# for media images and profile pic
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+

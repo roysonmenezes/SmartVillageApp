@@ -1,36 +1,13 @@
-# from django.shortcuts import render
-
-# # Create your views here.
-# # views.py
-# from rest_framework import generics, permissions
-# from .serializers import PublicRegistrationSerializer, AdminUserCreateSerializer
-# from django.contrib.auth import get_user_model
-
-# User = get_user_model()
-
-# class PublicRegistrationView(generics.CreateAPIView):
-#     queryset = User.objects.all()
-#     serializer_class = PublicRegistrationSerializer
-#     permission_classes = [permissions.AllowAny]  # Anyone can sign up
-
-
-# class AdminUserCreateView(generics.CreateAPIView):
-#     queryset = User.objects.all()
-#     serializer_class = AdminUserCreateSerializer
-#     permission_classes = [permissions.IsAdminUser]  # Only admins can create staff/admin
-
-
-
-
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, status
 from rest_framework.parsers import MultiPartParser, FormParser
 from django.contrib.auth import get_user_model
-from .serializers import RegisterSerializer, UserProfileSerializer
+from .serializers import RegisterSerializer, UserProfileSerializer, UpdateProfileSerializer, CustomTokenObtainPairSerializer
 from rest_framework.parsers import JSONParser
-from .serializers import CustomTokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework.response import Response
+
 
 
 
@@ -60,3 +37,29 @@ class UserProfileView(generics.RetrieveAPIView):
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
 
+
+# from rest_framework import generics, permissions, status
+# from rest_framework.response import Response
+# from django.contrib.auth import get_user_model
+# from .serializers import UserProfileSerializer, UpdateProfileSerializer
+
+
+class UpdateProfileView(generics.UpdateAPIView):
+    """
+    API endpoint for users to update their own profile.
+    """
+    serializer_class = UpdateProfileSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_object(self):
+        # ✅ only allow logged-in user to update their own profile
+        return self.request.user
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        # Return the full profile (with profile_picture URL etc.)
+        return Response(UserProfileSerializer(instance).data, status=status.HTTP_200_OK)

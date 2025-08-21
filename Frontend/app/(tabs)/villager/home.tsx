@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 export default function VillagerHome() {
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>This is Villager Home Page</Text>
+      <Text style={styles.heading}>This is Villagers Home Page</Text>
     </View>
   );
 }

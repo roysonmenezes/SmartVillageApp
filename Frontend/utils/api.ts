@@ -5,15 +5,6 @@ import { getToken, getRefreshToken, saveToken } from "./storage";
 
 export const API_BASE_URL = process.env.EXPO_PUBLIC_API_BASE_URL;
 
-
-// const api = axios.create({
-//   // baseURL: "http://10.21.127.67:8000", // use this if connected to mobile hotspot
-//   baseURL: "http://127.0.0.1:8000",         // usw this whie college wifi
-//   headers: { "Content-Type": "application/json" },
-// });
-
-
-
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: { "Content-Type": "application/json" },
@@ -36,7 +27,7 @@ api.interceptors.response.use(
       const refresh = useAuthStore.getState().refreshToken || (await getRefreshToken());
       if (refresh) {
         try {
-          const res = await axios.post("http://127.0.0.1:8000/accounts/token/refresh/", { refresh });
+          const res = await axios.post(`${API_BASE_URL}/accounts/token/refresh/`, { refresh });
           const newAccess = res.data.access;
           await saveToken(newAccess);
           useAuthStore.setState({ accessToken: newAccess });

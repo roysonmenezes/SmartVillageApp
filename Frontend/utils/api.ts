@@ -3,8 +3,19 @@ import axios from "axios";
 import { useAuthStore } from "../stores/authStore";
 import { getToken, getRefreshToken, saveToken } from "./storage";
 
+export const API_BASE_URL = process.env.EXPO_PUBLIC_API_BASE_URL;
+
+
+// const api = axios.create({
+//   // baseURL: "http://10.21.127.67:8000", // use this if connected to mobile hotspot
+//   baseURL: "http://127.0.0.1:8000",         // usw this whie college wifi
+//   headers: { "Content-Type": "application/json" },
+// });
+
+
+
 const api = axios.create({
-  baseURL: "http://127.0.0.1:8000",
+  baseURL: API_BASE_URL,
   headers: { "Content-Type": "application/json" },
 });
 

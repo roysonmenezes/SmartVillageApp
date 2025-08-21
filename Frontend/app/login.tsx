@@ -22,11 +22,12 @@ export default function LoginScreen() {
       setLoading(true);
       const res = await api.post("/accounts/login/", { username, password });
 
-      const { access, refresh, role } = res.data;
-      await login(access, refresh, role || "user"); // role defaults to "user" if not sent
+      const { access, refresh, user_type } = res.data;
+      await login(access, refresh, user_type || "user"); // role defaults to "user" if not sent
+      console.log("role", user_type);
 
       // Redirect user after login
-      if (role === "admin") {
+      if (user_type === "admin") {
         router.replace("/admin/home"); // Example admin tab
       } else {
         router.replace("/villager/home"); // Example user tab

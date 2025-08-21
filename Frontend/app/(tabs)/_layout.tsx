@@ -57,10 +57,15 @@ import { Tabs } from "expo-router";
 
 export default function TabsLayout() {
   return (
-    <Tabs>
+    <Tabs
+          screenOptions={{
+            headerShown: false,      // removes header bar at top
+            tabBarShowLabel: true,   // show custom titles
+          }}
+        >
       <Tabs.Screen
         name="admin/home"
-        options={{ title: "Admin Home" }}
+        options={{ title: "Admin Home"}}
       />
       <Tabs.Screen
         name="villager/home"

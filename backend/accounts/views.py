@@ -38,12 +38,6 @@ class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
 
 
-# from rest_framework import generics, permissions, status
-# from rest_framework.response import Response
-# from django.contrib.auth import get_user_model
-# from .serializers import UserProfileSerializer, UpdateProfileSerializer
-
-
 class UpdateProfileView(generics.UpdateAPIView):
     """
     API endpoint for users to update their own profile.

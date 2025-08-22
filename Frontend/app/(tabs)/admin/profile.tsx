@@ -73,12 +73,25 @@ export default function ProfileScreen() {
 
   return (
     <ScrollView className="flex-1 bg-white p-6">
-      <Text
+      {/* <Text
   className="text-3xl font-bold mb-6 text-center mt-6"
   style={{ color: "#5e9146" }} // custom hex code
 >
   My Profile
-</Text>
+</Text> */}
+    <View className="flex-row justify-between items-center mt-6 mb-6">
+        <Text
+          className="text-3xl font-bold text-center flex-1"
+          style={{ color: "#5e9146" }}
+        >
+          My Profile
+        </Text>
+
+        {/* Edit Button */}
+        <TouchableOpacity  onPress={() => router.push("/(tabs)/admin/edit-profile")}>
+          <Ionicons name="create-outline" size={28} color="#5e9146" />
+        </TouchableOpacity>
+      </View>
 
       {profile.profile_picture ? (
         <View className="items-center mb-6">

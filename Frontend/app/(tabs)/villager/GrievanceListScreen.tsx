@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, ActivityIndicator, RefreshControl, TouchableOpacity } from "react-native";
-import { useNavigation } from "@react-navigation/native"; 
+import {
+  View,
+  Text,
+  FlatList,
+  ActivityIndicator,
+  RefreshControl,
+  TouchableOpacity,
+} from "react-native";
+import { useRouter } from "expo-router";
 import api from "@/utils/api";
 
 interface Grievance {
@@ -17,7 +24,7 @@ export default function GrievanceListScreen() {
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
 
-  const navigation = useNavigation();
+  const router = useRouter();
 
   const fetchGrievances = async () => {
     try {
@@ -69,7 +76,7 @@ export default function GrievanceListScreen() {
       {/* Floating button */}
       <TouchableOpacity
         className="bg-[#5e9146] p-4 rounded-full absolute bottom-6 right-6 shadow-lg"
-        onPress={() => navigation.navigate("SubmitGrievance" as never)} // 👈 navigate to form
+        onPress={() => router.push("/(tabs)/villager/SubmitGrievanceScreen")} // 👈 navigate to form page
       >
         <Text className="text-white font-bold">+ New Complaint</Text>
       </TouchableOpacity>

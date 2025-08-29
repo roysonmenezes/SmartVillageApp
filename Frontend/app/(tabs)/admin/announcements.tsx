@@ -3,6 +3,8 @@ import { View, Text, TextInput, TouchableOpacity, Alert, ActivityIndicator } fro
 // import api from "../../utils/api"; // <-- your axios instance with baseURL + token handling
 import api from "@/utils/api";
 import { router } from "expo-router";
+import { getToken } from "@/utils/storage"; // wherever you save token
+
 
 export default function AdminCreateAnnouncement() {
   const [title, setTitle] = useState("");
@@ -18,10 +20,16 @@ export default function AdminCreateAnnouncement() {
 
     try {
       setLoading(true);
-      const response = await api.post("/announcements/create/", {
+      const token = await getToken();
+      const response = await api.post("api/announcements/create/", {
         title,
         message,
         expires_at: expiresAt,
+      },
+     {
+        headers: {
+          Authorization: `Bearer ${token}`, // or `Token ${token}` if you use DRF TokenAuth
+        },
       });
 
       Alert.alert("Success", "Announcement created successfully!");

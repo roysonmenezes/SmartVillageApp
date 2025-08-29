@@ -5,8 +5,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import generics, permissions
 from django.utils import timezone
-from .models import Announcement
-from .serializers import AnnouncementSerializer
+from .models import Announcement, Grievance
+from .serializers import AnnouncementSerializer , GrievanceSerializer
 
 
 # Create your views here.
@@ -42,3 +42,21 @@ class AnnouncementListView(generics.ListAPIView):
 
     def get_queryset(self):
         return Announcement.objects.filter(expires_at__gt=timezone.now()).order_by("-created_at")
+
+
+
+# Villager can create grievance, and everyone can list/view
+class GrievanceListCreateView(generics.ListCreateAPIView):
+    queryset = Grievance.objects.all().order_by("-created_at")
+    serializer_class = GrievanceSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+# Admin can update status (resolve complaints)
+class GrievanceUpdateView(generics.UpdateAPIView):
+    queryset = Grievance.objects.all()
+    serializer_class = GrievanceSerializer
+    permission_classes = [permissions.IsAdminUser]

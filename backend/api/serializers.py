@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Announcement
+from .models import Announcement, Grievance
 from django.utils import timezone
 
 
@@ -12,3 +12,13 @@ class AnnouncementSerializer(serializers.ModelSerializer):
 
     def get_is_active(self, obj):
         return obj.expires_at > timezone.now()
+
+
+
+class GrievanceSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField(read_only=True)  # shows username instead of ID
+
+    class Meta:
+        model = Grievance
+        fields = ["id", "user", "title", "description", "category", "status", "created_at"]
+        read_only_fields = ["id", "user", "status", "created_at"]

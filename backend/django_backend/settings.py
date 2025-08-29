@@ -14,6 +14,8 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 import dj_database_url
+from datetime import timedelta
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -155,4 +157,13 @@ REST_FRAMEWORK = {
 # for media images and profile pic
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=60),   # access token valid for 60 days
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=60),  # refresh token valid for 60 days
+    "ROTATE_REFRESH_TOKENS": False,
+    "BLACKLIST_AFTER_ROTATION": True,
+}
 

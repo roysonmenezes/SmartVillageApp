@@ -7,7 +7,7 @@ from rest_framework import generics, permissions
 from django.utils import timezone
 from .models import Announcement, Grievance
 from .serializers import AnnouncementSerializer , GrievanceSerializer
-
+from accounts.permissions import IsCustomAdmin 
 
 # Create your views here.
 
@@ -32,7 +32,8 @@ def just_print(request):
 class AnnouncementCreateView(generics.CreateAPIView):
     queryset = Announcement.objects.all()
     serializer_class = AnnouncementSerializer
-    permission_classes = [permissions.IsAdminUser]   # only admin can create
+    # permission_classes = [permissions.IsAdminUser]   # only admin can create
+    permission_classes = [IsCustomAdmin]
 
 
 # Villager (or anyone logged in): List active announcements

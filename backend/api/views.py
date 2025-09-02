@@ -57,7 +57,7 @@ class GrievanceListCreateView(generics.ListCreateAPIView):
 
 
 # Admin can update status (resolve complaints)
-class GrievanceUpdateView(generics.UpdateAPIView):
+class GrievanceUpdateView(generics.RetrieveUpdateAPIView):
     queryset = Grievance.objects.all()
     serializer_class = GrievanceSerializer
-    permission_classes = [permissions.IsAdminUser]
+    permission_classes = [IsCustomAdmin]

@@ -21,4 +21,4 @@ class GrievanceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Grievance
         fields = ["id", "user", "title", "description", "category", "status", "created_at"]
-        read_only_fields = ["id", "user", "status", "created_at"]
+        read_only_fields = ["id", "user", "created_at"]

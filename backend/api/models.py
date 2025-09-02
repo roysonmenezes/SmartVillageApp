@@ -8,8 +8,17 @@ from django.conf import settings   # ✅ use this instead of auth.models.User
 
 
 class Announcement(models.Model):
+    CATEGORY_CHOICES = [
+        ("general", "General"),
+        ("water", "Water Supply"),
+        ("electricity", "Electricity"),
+        ("roads", "Roads"),
+        ("health", "Health"),
+        ("other", "Other"),
+    ]
     title = models.CharField(max_length=255)
     message = models.TextField()
+    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default="general")
     created_at = models.DateTimeField(auto_now_add=True)
     expires_at = models.DateTimeField()
 

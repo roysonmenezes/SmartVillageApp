@@ -59,3 +59,19 @@ class Grievance(models.Model):
 
     def __str__(self):
         return f"{self.title} by {self.user}"
+
+
+class Advertisement(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.TextField(blank=True, null=True)
+    image = models.ImageField(upload_to="advertisements/")   # poster upload
+    redirect_url = models.URLField(blank=True, null=True)    # optional link (Amazon, website, etc.)
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    expiry_date = models.DateTimeField()
+
+    def is_expired(self):
+        return timezone.now() > self.expiry_date
+
+    def __str__(self):
+        return f"{self.title} ({'Expired' if self.is_expired() else 'Active'})"

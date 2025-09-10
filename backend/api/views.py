@@ -5,8 +5,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import generics, permissions
 from django.utils import timezone
-from .models import Announcement, Grievance
-from .serializers import AnnouncementSerializer , GrievanceSerializer
+from .models import Announcement, Grievance, Advertisement
+from .serializers import AnnouncementSerializer , GrievanceSerializer, AdvertisementSerializer
 from accounts.permissions import IsCustomAdmin 
 
 # Create your views here.
@@ -60,4 +60,30 @@ class GrievanceListCreateView(generics.ListCreateAPIView):
 class GrievanceUpdateView(generics.RetrieveUpdateAPIView):
     queryset = Grievance.objects.all()
     serializer_class = GrievanceSerializer
+    permission_classes = [IsCustomAdmin]
+
+
+
+
+# ✅ Villagers: list only active ads
+class AdvertisementListView(generics.ListAPIView):
+    serializer_class = AdvertisementSerializer
+
+    def get_queryset(self):
+        return Advertisement.objects.filter(
+            expiry_date__gt=timezone.now()
+        ).order_by("-created_at")
+
+
+# ✅ Admin: create new ad
+class AdvertisementCreateView(generics.CreateAPIView):
+    queryset = Advertisement.objects.all()
+    serializer_class = AdvertisementSerializer
+    permission_classes = [IsCustomAdmin]
+
+
+# ✅ Admin: retrieve, update, or delete ad
+class AdvertisementUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Advertisement.objects.all()
+    serializer_class = AdvertisementSerializer
     permission_classes = [IsCustomAdmin]

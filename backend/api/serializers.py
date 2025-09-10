@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Announcement, Grievance
+from .models import Announcement, Grievance, Advertisement
 from django.utils import timezone
 
 
@@ -22,3 +22,31 @@ class GrievanceSerializer(serializers.ModelSerializer):
         model = Grievance
         fields = ["id", "user", "title", "description", "category", "status", "created_at"]
         read_only_fields = ["id", "user", "created_at"]
+
+
+
+
+class AdvertisementSerializer(serializers.ModelSerializer):
+    is_expired = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Advertisement
+        fields = [
+            "id",
+            "title",
+            "description",
+            "image",
+            "redirect_url",
+            "created_by",
+            "created_at",
+            "expiry_date",
+            "is_expired",
+        ]
+        read_only_fields = ["created_by", "created_at"]
+
+    def get_is_expired(self, obj):
+        return obj.is_expired()
+
+    def create(self, validated_data):
+        user = self.context["request"].user
+        return Advertisement.objects.create(created_by=user, **validated_data)

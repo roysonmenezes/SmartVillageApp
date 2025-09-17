@@ -88,7 +88,7 @@ export default function ProfileScreen() {
         </Text>
 
         {/* Edit Button */}
-        <TouchableOpacity  onPress={() => router.push("/(tabs)/admin/edit-profile")}>
+        <TouchableOpacity  onPress={() => router.push("/(tabs)/villager/edit-profile")}>
           <Ionicons name="create-outline" size={28} color="#5e9146" />
         </TouchableOpacity>
       </View>

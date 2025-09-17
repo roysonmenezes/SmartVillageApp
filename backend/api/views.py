@@ -8,6 +8,8 @@ from django.utils import timezone
 from .models import Announcement, Grievance, Advertisement
 from .serializers import AnnouncementSerializer , GrievanceSerializer, AdvertisementSerializer
 from accounts.permissions import IsCustomAdmin 
+from rest_framework.parsers import MultiPartParser, FormParser
+
 
 # Create your views here.
 
@@ -79,7 +81,11 @@ class AdvertisementListView(generics.ListAPIView):
 class AdvertisementCreateView(generics.CreateAPIView):
     queryset = Advertisement.objects.all()
     serializer_class = AdvertisementSerializer
+    parser_classes = [MultiPartParser, FormParser]
     permission_classes = [IsCustomAdmin]
+
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
 
 
 # ✅ Admin: retrieve, update, or delete ad

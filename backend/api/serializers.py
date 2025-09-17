@@ -47,6 +47,6 @@ class AdvertisementSerializer(serializers.ModelSerializer):
     def get_is_expired(self, obj):
         return obj.is_expired()
 
-    def create(self, validated_data):
-        user = self.context["request"].user
-        return Advertisement.objects.create(created_by=user, **validated_data)
+    # def create(self, validated_data):
+    #     user = self.context["request"].user
+    #     return Advertisement.objects.create(created_by=user, **validated_data)

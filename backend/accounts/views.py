@@ -7,6 +7,7 @@ from .serializers import RegisterSerializer, UserProfileSerializer, UpdateProfil
 from rest_framework.parsers import JSONParser
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
 
 
 
@@ -28,7 +29,8 @@ class RegisterView(generics.CreateAPIView):
 @method_decorator(csrf_exempt, name='dispatch')
 class UserProfileView(generics.RetrieveAPIView):
     serializer_class = UserProfileSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [AllowAny]
 
     def get_object(self):
         return self.request.user

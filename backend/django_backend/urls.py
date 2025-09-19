@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),  # API URLs
     path('accounts/', include('accounts.urls')),  # Accounts URLs
+    path('surveys/', include('surveys.urls')),  # Surveys URLs
 ]
 
 # for media files

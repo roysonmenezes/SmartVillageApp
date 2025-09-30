@@ -11,10 +11,15 @@ class QuestionSerializer(serializers.ModelSerializer):
 
 class SurveySerializer(serializers.ModelSerializer):
     questions = QuestionSerializer(many=True, required=False)
+    response_count = serializers.SerializerMethodField()  # ✅ new field
 
     class Meta:
         model = Survey
-        fields = ["id", "title", "description", "created_at", "questions"]
+        fields = ["id", "title", "description", "created_at", "questions", "response_count"]
+
+    def get_response_count(self, obj):
+        # obj.response_set is the default reverse relation if no related_name is set
+        return obj.response_set.count()
 
     def create(self, validated_data):
         # Extract questions if included
@@ -25,6 +30,7 @@ class SurveySerializer(serializers.ModelSerializer):
             Question.objects.create(survey=survey, **q_data)
 
         return survey
+
 
     def update(self, instance, validated_data):
         questions_data = validated_data.pop("questions", [])

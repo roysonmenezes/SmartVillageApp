@@ -3,7 +3,19 @@ import { Ionicons } from "@expo/vector-icons";
 
 export default function AdminLayout() {
   return (
-    <Tabs screenOptions={{ headerShown: false }}>
+    <Tabs
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: {
+          backgroundColor: "#ffffff", // white background
+          borderTopColor: "#22c55e", // green top border
+          borderTopWidth: 2,
+        },
+        tabBarActiveTintColor: "#22c55e", // green for selected icon
+        tabBarInactiveTintColor: "#999999", // gray for inactive icons
+      }}
+    >
+      {/* Dashboard */}
       <Tabs.Screen
         name="home"
         options={{
@@ -13,6 +25,8 @@ export default function AdminLayout() {
           ),
         }}
       />
+
+      {/* Donations */}
       <Tabs.Screen
         name="donations"
         options={{
@@ -22,6 +36,8 @@ export default function AdminLayout() {
           ),
         }}
       />
+
+      {/* Events */}
       <Tabs.Screen
         name="events"
         options={{
@@ -31,6 +47,8 @@ export default function AdminLayout() {
           ),
         }}
       />
+
+      {/* Users */}
       <Tabs.Screen
         name="manage-users"
         options={{
@@ -40,6 +58,8 @@ export default function AdminLayout() {
           ),
         }}
       />
+
+      {/* Profile */}
       <Tabs.Screen
         name="profile"
         options={{
@@ -49,6 +69,8 @@ export default function AdminLayout() {
           ),
         }}
       />
+
+      {/* Announcements */}
       <Tabs.Screen
         name="announcements"
         options={{
@@ -58,12 +80,45 @@ export default function AdminLayout() {
           ),
         }}
       />
+
+      {/* Surveys */}
       <Tabs.Screen
-        name="edit-profile"
+        name="surveyList"
         options={{
-          href: null, // 🚀 hides from tab bar navigation
+          title: "Surveys",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="clipboard" color={color} size={size} />
+          ),
         }}
       />
+
+      {/* Advertisements */}
+      <Tabs.Screen
+        name="PostAdvertisement"
+        options={{
+          title: "Advertisements",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="images" color={color} size={size} />
+          ),
+        }}
+      />
+
+      {/* Grievances */}
+      <Tabs.Screen
+        name="AdminGrievanceScreen"
+        options={{
+          title: "Grievances",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="alert-circle" color={color} size={size} />
+          ),
+        }}
+      />
+
+      {/* Hidden screens (not in bottom tab) */}
+      <Tabs.Screen name="edit-profile" options={{ href: null }} />
+      <Tabs.Screen name="GrievanceDetailScreen" options={{ href: null }} />
+      <Tabs.Screen name="createSurvey" options={{ href: null }} />
+      <Tabs.Screen name="surveyDetail/[id]" options={{ href: null }} />
     </Tabs>
   );
 }

@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, ScrollView, ActivityIndicator, Alert } from "react-native";
 import { useRouter } from "expo-router";
@@ -7,7 +8,7 @@ import { API_BASE_URL } from "@/utils/api";
 interface Survey {
   id: number;
   title: string;
-  description: string;
+  description: string;  
 }
 
 const SurveyList = () => {
@@ -47,18 +48,27 @@ const SurveyList = () => {
 
   return (
     <ScrollView className="flex-1 p-4 bg-white">
-      <Text className="text-xl font-bold mb-4 text-green-600">All Surveys</Text>
+      {/* Header with Title + Create Button */}
+      <View className="flex-row justify-between items-center mb-4">
+        <Text className="text-xl font-bold text-green-600">All Surveys</Text>
+        <TouchableOpacity
+          className="bg-green-600 px-4 py-2 rounded"
+          onPress={() => router.push("/admin/createSurvey")}
+        >
+          <Text className="text-white font-semibold">Create Survey</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Survey List */}
       {surveys.map((survey) => (
         <TouchableOpacity
           key={survey.id}
-        //   onPress={() => router.push(`/admin/surveyDetail/[id]`)}
-        onPress={() =>
-  router.push({
-    pathname: "/admin/surveyDetail/[id]",
-    params: { id: survey.id.toString() },
-  })
-}
-
+          onPress={() =>
+            router.push({
+              pathname: "/admin/surveyDetail/[id]",
+              params: { id: survey.id.toString() },
+            })
+          }
           className="border border-gray-300 rounded-lg p-4 mb-3"
         >
           <Text className="font-semibold text-lg">{survey.title}</Text>

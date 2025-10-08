@@ -2,7 +2,7 @@
 import "@walletconnect/react-native-compat";
 import { WagmiProvider } from "wagmi";
 import React from 'react';
-import { mainnet, polygon, arbitrum } from "@wagmi/core/chains";
+import { mainnet, polygon, arbitrum, sepolia } from "@wagmi/core/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   createAppKit,
@@ -29,7 +29,7 @@ const metadata = {
   },
 };
 
-const chains = [mainnet, polygon, arbitrum] as const;
+const chains = [sepolia, polygon, arbitrum] as const;
 
 const wagmiConfig = defaultWagmiConfig({ chains, projectId, metadata });
 

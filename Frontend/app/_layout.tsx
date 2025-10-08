@@ -1,5 +1,8 @@
 import "../global.css";
 
+import Web3Provider from './Web3Provider'; // Adjust path as needed
+import React from 'react'
+
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
@@ -30,6 +33,7 @@ export default function RootLayout() {
   }
 
   return (
+    <Web3Provider>
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
         {/* 👇 Make index.tsx the first screen */}
@@ -38,7 +42,7 @@ export default function RootLayout() {
         {/* Login + Signup should also be stack screens */}
         <Stack.Screen name="login" options={{ headerShown: false }} />
         <Stack.Screen name="signup" options={{ headerShown: false }} />
-
+ 
         {/* Tabs (after login) */}
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
 
@@ -47,5 +51,6 @@ export default function RootLayout() {
       </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>
+    </Web3Provider>
   );
 }

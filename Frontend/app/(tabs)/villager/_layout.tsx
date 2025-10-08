@@ -10,9 +10,11 @@ export default function VillagerLayout() {
         tabBarInactiveTintColor: "gray",   // Inactive icon color
         tabBarStyle: {
           backgroundColor: "white",       // ✅ Background color of bottom tab
-          borderTopColor: "#28a745",      // ✅ Green border on top
+          borderTopColor: "#28bb4aff",      // ✅ Green border on top
           borderTopWidth: 2,              // Thickness of the border
-          height: 60,                     // Optional: adjust tab height
+          height: 60,
+          paddingBottom: 10,            // Adds padding at the bottom
+          marginBottom: 10,                     // Optional: adjust tab height
         },
         tabBarLabelStyle: {
           fontSize: 12,

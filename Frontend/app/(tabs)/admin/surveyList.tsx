@@ -49,7 +49,7 @@ const SurveyList = () => {
   return (
     <ScrollView className="flex-1 p-4 bg-white">
       {/* Header with Title + Create Button */}
-      <View className="flex-row justify-between items-center mb-4">
+      <View className="flex-row justify-between items-center mb-4 mt-9">
         <Text className="text-xl font-bold text-green-600">All Surveys</Text>
         <TouchableOpacity
           className="bg-green-600 px-4 py-2 rounded"

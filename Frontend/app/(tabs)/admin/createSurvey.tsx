@@ -97,7 +97,7 @@ const CreateSurvey = () => {
 
   return (
     <ScrollView className="flex-1 p-4 bg-white">
-      <Text className="text-xl font-bold mb-4 text-green-600">
+      <Text className="text-xl font-bold mb-4 mt-9 p-4 text-green-600">
         Create Survey
       </Text>
 

@@ -1,16 +1,29 @@
+
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, Alert, ActivityIndicator } from "react-native";
-// import api from "../../utils/api"; // <-- your axios instance with baseURL + token handling
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Alert,
+  ActivityIndicator,
+} from "react-native";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 import api from "@/utils/api";
 import { router } from "expo-router";
-import { getToken } from "@/utils/storage"; // wherever you save token
-
+import { getToken } from "@/utils/storage";
 
 export default function AdminCreateAnnouncement() {
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
-  const [expiresAt, setExpiresAt] = useState(""); // ISO datetime string
+  const [expiresAt, setExpiresAt] = useState<Date | null>(null);
   const [loading, setLoading] = useState(false);
+  const [showPicker, setShowPicker] = useState(false);
+
+  const handleConfirm = (date: Date) => {
+    setExpiresAt(date);
+    setShowPicker(false);
+  };
 
   const handleCreate = async () => {
     if (!title || !message || !expiresAt) {
@@ -21,21 +34,22 @@ export default function AdminCreateAnnouncement() {
     try {
       setLoading(true);
       const token = await getToken();
-      const response = await api.post("api/announcements/create/", {
-        title,
-        message,
-        expires_at: expiresAt,
-      },
-     {
-        headers: {
-          Authorization: `Bearer ${token}`, // or `Token ${token}` if you use DRF TokenAuth
+
+      const response = await api.post(
+        "api/announcements/create/",
+        {
+          title,
+          message,
+          expires_at: expiresAt.toISOString(),
         },
-      });
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       Alert.alert("Success", "Announcement created successfully!");
-      console.log("Created:", response.data);
-
-      // Optionally navigate back to dashboard or announcements list
       router.push("/admin/announcements");
     } catch (error: any) {
       console.error("Error creating announcement:", error);
@@ -47,7 +61,7 @@ export default function AdminCreateAnnouncement() {
 
   return (
     <View className="flex-1 bg-white p-6">
-      <Text className="text-2xl font-bold mb-4">Create Announcement</Text>
+      <Text className="text-2xl font-bold mb-4 mt-10">Create Announcement</Text>
 
       <Text className="text-lg font-semibold mb-2">Title</Text>
       <TextInput
@@ -68,16 +82,29 @@ export default function AdminCreateAnnouncement() {
       />
 
       <Text className="text-lg font-semibold mb-2">Expires At</Text>
-      <TextInput
+      <TouchableOpacity
+        onPress={() => setShowPicker(true)}
         className="border border-gray-300 rounded-lg p-3 mb-4"
-        placeholder="YYYY-MM-DDTHH:MM:SSZ"
-        value={expiresAt}
-        onChangeText={setExpiresAt}
+      >
+        <Text className="text-gray-700">
+          {expiresAt
+            ? expiresAt.toLocaleString()
+            : "Select date and time"}
+        </Text>
+      </TouchableOpacity>
+
+      <DateTimePickerModal
+        isVisible={showPicker}
+        mode="datetime"
+        date={expiresAt || new Date()}
+        minimumDate={new Date()}
+        onConfirm={handleConfirm}
+        onCancel={() => setShowPicker(false)}
       />
 
       <TouchableOpacity
         onPress={handleCreate}
-        className="bg-blue-600 p-4 rounded-xl items-center"
+        className="bg-[#5e9146] p-4 rounded-xl items-center"
         disabled={loading}
       >
         {loading ? (

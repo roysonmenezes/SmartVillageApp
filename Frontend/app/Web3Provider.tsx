@@ -14,7 +14,8 @@ import {
 const queryClient = new QueryClient();
 
 // 1. Get projectId at https://dashboard.reown.com - **REPLACE THIS**
-const projectId = "3ba56a6e11d1f233b65f68da30afde62"; 
+// const projectId = "3ba56a6e11d1f233b65f68da30afde62"; 
+const projectId = "f6ca6aa23b406c687a89c3afda7237be";
 
 // 2. Create config
 const metadata = {

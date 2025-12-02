@@ -1,8 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert, TextInput } from "react-native";
 import { AppKitButton } from "@reown/appkit-wagmi-react-native";
 import { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt } from 'wagmi';
 import { parseEther, Address } from 'viem';
+import * as Linking from "expo-linking";
+
+
+
+
+
 
 // --- CONFIGURATION ---
 // Define the type for the fund addresses object
@@ -86,6 +92,18 @@ export default function Donation() {
   // Combine all loading/pending states
   const isTransactionProcessing = isPending || isConfirming;
 
+  const showSuccess = (hash: string) => {
+  Alert.alert(
+    "🎉 Donation Successful!",
+    `Thank you for your kindness ❤️\n\n🟢 Transaction Hash:\n${hash}`,
+    [
+      { text: "View Receipt", onPress: () => Linking.openURL(`https://sepolia.etherscan.io/tx/${hash}`) },
+      { text: "OK" }
+    ]
+  );
+};
+
+
   const handleDonate = () => {
     if (!isConnected) {
       Alert.alert("Wallet Required", "Please connect your wallet to proceed.");
@@ -113,11 +131,29 @@ export default function Donation() {
       Alert.alert("Transaction Error", "Could not prepare transaction. Check amount and network.");
     }
   };
+useEffect(() => {
+  if (isConfirmed && hash) {
+    showSuccess(hash);      // 🔥 show alert
+    setDonationAmount("");  // reset amount
+    // setSelectedFund("education");  // optional reset fund
+  }
+}, [isConfirmed]);
+
+
+
+
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Make a Donation</Text>
-      <Text style={styles.subHeading}>Support Our Smart Village Project</Text>
+      <Text
+        className="text-3xl font-bold mb-4 mt-10 text-center"
+        style={{ color: "#5e9146" }}
+      >
+        Donations
+      </Text>
+
+
+      <Text style={styles.subHeading}>Together we can uplift communities</Text>
       
       {/* Wallet Status Section */}
       <View style={styles.walletSection}>
@@ -238,7 +274,7 @@ const styles = StyleSheet.create({
   subHeading: {
     fontSize: 16,
     color: "#666",
-    marginBottom: 30,
+    marginBottom: 0,
   },
   walletSection: {
     width: '100%',
@@ -307,17 +343,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   fundButtonSelected: {
-    backgroundColor: '#007BFF',
-    borderColor: '#0056b3',
-    borderWidth: 2,
-  },
+  backgroundColor: '#DFF5D2',   // light green
+  borderColor: '#5e9146',       // your green
+  borderWidth: 2,
+},
+fundButtonTextSelected: {
+  color: '#5e9146',             // dark green text
+  fontWeight: '800',
+},
   fundButtonText: {
     color: '#333',
     fontWeight: '600',
   },
-  fundButtonTextSelected: {
-    color: 'white',
-  },
+  // fundButtonTextSelected: {
+  //   color: 'white',
+  // },
   input: {
     height: 50,
     borderColor: '#DDD',
@@ -356,7 +396,7 @@ const styles = StyleSheet.create({
   },
   // Existing styles
   donateButton: {
-    backgroundColor: '#007BFF',
+    backgroundColor: '#5e9146',
     paddingVertical: 15,
     paddingHorizontal: 30,
     borderRadius: 8,

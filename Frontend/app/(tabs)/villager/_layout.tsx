@@ -6,15 +6,15 @@ export default function VillagerLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: "#28a745", // ✅ Active icon color (green)
+        tabBarActiveTintColor: "#5e9146", // ✅ Active icon color (green)
         tabBarInactiveTintColor: "gray",   // Inactive icon color
         tabBarStyle: {
           backgroundColor: "white",       // ✅ Background color of bottom tab
-          borderTopColor: "#28bb4aff",      // ✅ Green border on top
+          borderTopColor: "#5e9146",      // ✅ Green border on top
           borderTopWidth: 2,              // Thickness of the border
           height: 60,
           paddingBottom: 10,            // Adds padding at the bottom
-          marginBottom: 10,                     // Optional: adjust tab height
+          marginBottom: 40,                     // Optional: adjust tab height
         },
         tabBarLabelStyle: {
           fontSize: 12,
@@ -33,11 +33,11 @@ export default function VillagerLayout() {
       />
 
       <Tabs.Screen
-        name="donations"
+        name="donation"
         options={{
           title: "Donations",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="cash" color={color} size={size} />
+            <Ionicons name="wallet" color={color} size={size} />
           ),
         }}
       />

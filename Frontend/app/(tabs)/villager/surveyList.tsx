@@ -62,7 +62,13 @@ const SurveyList = () => {
 
   return (
     <ScrollView className="flex-1 p-4 bg-white">
-      <Text className="text-2xl font-bold text-green-600 mb-4">Surveys</Text>
+      <Text
+        className="text-3xl font-bold mb-4 mt-10 text-center"
+        style={{ color: "#5e9146" }}
+      >
+        Surveys
+      </Text>
+
       {surveys.map((s) => (
         <TouchableOpacity
           key={s.id}

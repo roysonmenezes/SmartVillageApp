@@ -49,7 +49,12 @@ export default function AnnouncementsScreen() {
 
   return (
     <ScrollView className="flex-1 p-4 bg-white">
-      <Text className="text-2xl font-bold mb-4 text-center">Announcements</Text>
+      <Text
+  className="text-3xl font-bold mb-4 mt-10 text-center"
+  style={{ color: "#5e9146" }}
+>
+  Announcements
+</Text>
 
       {announcements.length === 0 ? (
         <Text className="text-center text-gray-500">No announcements yet.</Text>

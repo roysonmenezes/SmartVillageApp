@@ -52,6 +52,13 @@ export default function GrievanceListScreen() {
 
   return (
     <View className="flex-1 bg-gray-100">
+
+      <Text
+  className="text-3xl font-bold mb-4 mt-10 text-center"
+  style={{ color: "#5e9146" }}
+>
+  Grievances
+</Text>
       {/* List of grievances */}
       <FlatList
         data={grievances}

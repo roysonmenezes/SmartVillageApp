@@ -117,43 +117,98 @@ const SurveyDetail = () => {
 
   if (!survey) return <Text className="text-center mt-4">Survey not found</Text>;
 
+  // return (
+  //   <ScrollView className="flex-1 p-4 bg-white">
+  //     <Text className="text-xl font-bold mb-2 text-green-600">
+  //       {survey.title}
+  //     </Text>
+  //     <Text className="text-gray-700 mb-4">{survey.description}</Text>
+
+  //     <Text className="text-gray-800 font-medium mb-4">
+  //       Responses: {survey.response_count}
+  //     </Text>
+
+  //     <Text className="text-lg font-semibold mb-2">Questions:</Text>
+  //     {survey.questions.map((q) => (
+  //       <View
+  //         key={q.id}
+  //         className="border border-gray-300 rounded-lg p-3 mb-2"
+  //       >
+  //         <Text className="font-medium">{q.text}</Text>
+  //         <Text className="text-gray-500 text-sm">
+  //           Type: {q.question_type}
+  //         </Text>
+  //         {q.question_type === "choice" && (
+  //           <Text className="text-gray-500 text-sm">Options: {q.options}</Text>
+  //         )}
+  //       </View>
+  //     ))}
+
+  //     <TouchableOpacity
+  //       onPress={handleDownloadExcel}
+  //       className="bg-green-600 rounded-lg p-3 mt-4 items-center"
+  //     >
+  //       <Text className="text-white font-bold">
+  //         Download Responses (Excel)
+  //       </Text>
+  //     </TouchableOpacity>
+  //   </ScrollView>
+  // );
   return (
-    <ScrollView className="flex-1 p-4 bg-white">
-      <Text className="text-xl font-bold mb-2 text-green-600">
-        {survey.title}
-      </Text>
-      <Text className="text-gray-700 mb-4">{survey.description}</Text>
+  <View className="flex-1 bg-white">
+    {/* Page Title */}
+    <Text className="text-2xl font-bold text-center text-[#5e9146] mt-12 mb-4">
+      {survey.title}
+    </Text>
 
-      <Text className="text-gray-800 font-medium mb-4">
-        Responses: {survey.response_count}
-      </Text>
+    <ScrollView className="flex-1 px-4 pb-28">
+      {/* Description Card */}
+      <View className="bg-gray-100 rounded-xl p-4 mb-4 border border-gray-200">
+        <Text className="text-gray-700">{survey.description}</Text>
+      </View>
 
-      <Text className="text-lg font-semibold mb-2">Questions:</Text>
+      {/* Responses Count */}
+      <View className="bg-white rounded-lg p-3 mb-3 border border-gray-200">
+        <Text className="text-[#5e9146] font-semibold text-lg">
+          Responses: {survey.response_count}
+        </Text>
+      </View>
+
+      {/* Questions */}
+      <Text className="text-lg font-semibold mb-2 text-gray-700">
+        Questions:
+      </Text>
       {survey.questions.map((q) => (
         <View
           key={q.id}
-          className="border border-gray-300 rounded-lg p-3 mb-2"
+          className="bg-white border border-gray-300 rounded-lg p-4 mb-2 shadow-sm"
         >
-          <Text className="font-medium">{q.text}</Text>
-          <Text className="text-gray-500 text-sm">
+          <Text className="font-bold text-gray-800 mb-1">{q.text}</Text>
+          <Text className="text-gray-500 text-sm mb-1">
             Type: {q.question_type}
           </Text>
           {q.question_type === "choice" && (
-            <Text className="text-gray-500 text-sm">Options: {q.options}</Text>
+            <Text className="text-gray-500 text-sm">
+              Options: {q.options}
+            </Text>
           )}
         </View>
       ))}
-
-      <TouchableOpacity
-        onPress={handleDownloadExcel}
-        className="bg-green-600 rounded-lg p-3 mt-4 items-center"
-      >
-        <Text className="text-white font-bold">
-          Download Responses (Excel)
-        </Text>
-      </TouchableOpacity>
     </ScrollView>
-  );
+
+    {/* Floating Download Button */}
+    <TouchableOpacity
+      onPress={handleDownloadExcel}
+      className="absolute bottom-6 right-6 bg-[#5e9146] px-6 py-3 rounded-xl items-center justify-center shadow-lg"
+      style={{ elevation: 6 }}
+    >
+      <Text className="text-white font-semibold text-md">
+        📥 Download Excel
+      </Text>
+    </TouchableOpacity>
+  </View>
+);
+
 };
 
 export default SurveyDetail;

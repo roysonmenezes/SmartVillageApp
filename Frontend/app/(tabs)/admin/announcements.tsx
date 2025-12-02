@@ -61,7 +61,7 @@ export default function AdminCreateAnnouncement() {
 
   return (
     <View className="flex-1 bg-white p-6">
-      <Text className="text-2xl font-bold mb-4 mt-10">Create Announcement</Text>
+      <Text className="text-2xl font-bold mb-4 mt-10 text-center  text-[#5e9146]">Create Announcement</Text>
 
       <Text className="text-lg font-semibold mb-2">Title</Text>
       <TextInput

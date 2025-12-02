@@ -94,8 +94,8 @@ export default function Donation() {
 
   const showSuccess = (hash: string) => {
   Alert.alert(
-    "🎉 Donation Successful!",
-    `Thank you for your kindness ❤️\n\n🟢 Transaction Hash:\n${hash}`,
+    "Donation Successful!",
+    `Thank you for your kindness \n\n Transaction Hash:\n${hash}`,
     [
       { text: "View Receipt", onPress: () => Linking.openURL(`https://sepolia.etherscan.io/tx/${hash}`) },
       { text: "OK" }
@@ -249,9 +249,9 @@ useEffect(() => {
             Transaction Hash: {hash.slice(0, 8)}...
           </Text>
         )}
-        {isConfirmed && <Text style={styles.successText}>✅ Transaction Confirmed!</Text>}
-        {sendError && <Text style={styles.errorText}>❌ Send Error: {sendError?.message}</Text>}
-        {confirmError && <Text style={styles.errorText}>❌ Confirmation Error: {confirmError?.message}</Text>}
+        {isConfirmed && <Text style={styles.successText}>Transaction Confirmed!</Text>}
+        {sendError && <Text style={styles.errorText}>Send Error: {sendError?.message}</Text>}
+        {confirmError && <Text style={styles.errorText}>Confirmation Error: {confirmError?.message}</Text>}
       </View>
 
     </View>

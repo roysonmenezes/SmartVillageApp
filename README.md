@@ -44,16 +44,12 @@ The application ensures **transparency and efficiency** by allowing users to tra
 
 ---
 
-## 🏗️ Project Structure
-smart-village/
-│
-├── backend/ # Django Backend
-├── frontend/ # React Native (Expo)
-└── README.md
+
 
 ## 🚀 How to Run the Project Locally
 
 ### 🔽 Step 1: Clone the Repository
+use main-3 branch for latest updates
 ```
 git clone https://github.com/roysonmenezes/SmartVillageApp.git
 cd SmartVillageApp
